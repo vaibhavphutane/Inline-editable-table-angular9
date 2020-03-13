@@ -1,89 +1,89 @@
-<header>
-  <div>
-    <h1>Inline Editable Table</h1>
-  </div>
-  <mat-icon (click)="toggleTheme()" title="Change theme">format_color_fill</mat-icon>
-</header>
-<form [formGroup]="userForm">
-    <table class="table table-border" [ngClass]="{'table-dark': mode}">
-      <thead class="text-nowrap">
-        <th>Name <span class="ui-column-resizer" dragableColumn> </span></th>
-        <th>Email<span class="ui-column-resizer" dragableColumn> </span></th>
-        <th>Date Of Birth<span class="ui-column-resizer" dragableColumn> </span></th>
-        <th>Blood Group<span class="ui-column-resizer" dragableColumn> </span></th>
-        <th>Mobile Number</th>
-        <th></th>
-      </thead>
-      <tbody>
-        <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
-          <tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
-            <td>
-              <mat-form-field>
-                <input matInput type="text" formControlName="name">
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <input matInput type="tetx" formControlName="email">
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <input matInput matInput [matDatepicker]="picker" formControlName="dob">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <mat-select formControlName="bloodGroup">
-                  <mat-option value="O+">O</mat-option>
-                  <mat-option value="A">A</mat-option>
-                  <mat-option value="B">B</mat-option>
-                  <mat-option value="AB">AB</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <input matInput type="text" formControlName="mobNumber">
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-icon class="delete" (click)="deleteRow(i)">delete_forever</mat-icon>
-              <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
-            </td>
-          </tr>
-          <tr *ngIf="!group.get('isEditable').value" [formGroupName]="i">
-            <td>
-              {{group.get('name').value}}
-            </td>
-            <td>
-              {{group.get('email').value}}
-            </td>
-            <td>
-                {{group.get('email').value}}
-            </td>
-            <td>
-                {{group.get('bloodGroup').value}}
-            </td>
-            <td>
-              {{group.get('mobNumber').value}}
-            </td>
-            <td>
-              <mat-icon class="edit" (click)="editRow(group)">edit</mat-icon>
-            </td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
-    <div class="action-container">
-      <button mat-raised-button type="submit" (click)="addRow()">Add row</button>
-      <button mat-raised-button [disabled]="userForm.invalid" type="submit" (click)="submitForm()">Submit</button>
+  <header>
+    <div>
+      <h1>Inline Editable Table</h1>
     </div>
-  </form>
-  <div class="output">
-     <p>Form Data:  {{userForm.value | json}}</p>
-      <p>Is Valid: {{userForm.valid}}</p>
-  </div>
+    <mat-icon (click)="toggleTheme()" title="Change theme">format_color_fill</mat-icon>
+  </header>
+  <form [formGroup]="userTable">
+      <table class="table table-border" [ngClass]="{'table-dark': mode}">
+        <thead class="text-nowrap">
+          <th>Name <span class="ui-column-resizer" dragableColumn> </span></th>
+          <th>Email<span class="ui-column-resizer" dragableColumn> </span></th>
+          <th>Date Of Birth<span class="ui-column-resizer" dragableColumn> </span></th>
+          <th>Blood Group<span class="ui-column-resizer" dragableColumn> </span></th>
+          <th>Mobile Number</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
+            <tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
+              <td>
+                <mat-form-field>
+                  <input matInput type="text" formControlName="name">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput type="tetx" formControlName="email">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput matInput [matDatepicker]="picker" formControlName="dob">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <mat-select formControlName="bloodGroup">
+                    <mat-option value="O+">O</mat-option>
+                    <mat-option value="A">A</mat-option>
+                    <mat-option value="B">B</mat-option>
+                    <mat-option value="AB">AB</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput type="text" formControlName="mobNumber">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-icon class="delete" (click)="deleteRow(i)">delete_forever</mat-icon>
+                <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
+              </td>
+            </tr>
+            <tr *ngIf="!group.get('isEditable').value" >
+              <td>
+                {{group.get('name').value}}
+              </td>
+              <td>
+                {{group.get('email').value}}
+              </td>
+              <td>
+                  {{group.get('email').value}}
+              </td>
+              <td>
+                  {{group.get('bloodGroup').value}}
+              </td>
+              <td>
+                {{group.get('mobNumber').value}}
+              </td>
+              <td>
+                <mat-icon class="edit" (click)="editRow(group)">edit</mat-icon>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <div class="action-container">
+        <button mat-raised-button type="submit" (click)="addRow()">Add row</button>
+        <button mat-raised-button [disabled]="userTable.invalid" type="submit" (click)="submitForm()">Submit</button>
+      </div>
+    </form>
+    <div class="output">
+      <p>Form Data:  {{userTable.value | json}}</p>
+        <p>Is Valid: {{userTable.valid}}</p>
+    </div>
 

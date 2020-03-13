@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 })
 export class UserTableComponent implements OnInit {
 
-  userForm: FormGroup;
+  userTable: FormGroup;
   control: FormArray;
   mode: boolean;
   touchedRows: any;
@@ -16,13 +16,14 @@ export class UserTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.touchedRows = [];
-    this.userForm = this.fb.group({
+    this.userTable = this.fb.group({
       tableRows: this.fb.array([])
     });
     this.addRow();
   }
+
   ngAfterOnInit() {
-    this.control = this.userForm.get('tableRows') as FormArray;
+    this.control = this.userTable.get('tableRows') as FormArray;
   }
 
   initiateForm(): FormGroup {
@@ -37,12 +38,12 @@ export class UserTableComponent implements OnInit {
   }
 
   addRow() {
-    const control =  this.userForm.get('tableRows') as FormArray;
+    const control =  this.userTable.get('tableRows') as FormArray;
     control.push(this.initiateForm());
   }
 
   deleteRow(index: number) {
-    const control =  this.userForm.get('tableRows') as FormArray;
+    const control =  this.userTable.get('tableRows') as FormArray;
     control.removeAt(index);
   }
 
@@ -55,16 +56,16 @@ export class UserTableComponent implements OnInit {
   }
 
   saveUserDetails() {
-    console.log(this.userForm.value);
+    console.log(this.userTable.value);
   }
 
   get getFormControls() {
-    const control = this.userForm.get('tableRows') as FormArray;
+    const control = this.userTable.get('tableRows') as FormArray;
     return control;
   }
 
   submitForm() {
-    const control = this.userForm.get('tableRows') as FormArray;
+    const control = this.userTable.get('tableRows') as FormArray;
     this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
     console.log(this.touchedRows);
   }
